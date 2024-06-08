@@ -65,7 +65,7 @@ async def random_music_command(ctx):
             recent_numbers.append(random_music)
             with open(recent_numbers_path, 'w') as f:
                 json.dump({'recent_numbers': list(recent_numbers)}, f)
-            await ctx.send(f'랜덤 곡: {random_music}')
+            await ctx.send(f'첫 곡: {random_music}')
         except Exception as e:
             await ctx.send(f'오류 발생: {e}')
     else:
@@ -88,13 +88,13 @@ async def next_music_command(ctx):
                 recent_numbers.append(random_music)
                 with open(recent_numbers_path, 'w') as f:
                     json.dump({'recent_numbers': list(recent_numbers)}, f)
-                await ctx.send(f'다음 랜덤 곡: {random_music}')
+                await ctx.send(f'다음곡: {random_music}')
             else:
                 await ctx.send('모든 음악이 최근에 사용되었습니다.')
         except Exception as e:
             await ctx.send(f'오류 발생: {e}')
     else:
-        await ctx.send('이 명령어를 사용할 권한이 없습니다.')
+        await ctx.send('님 권한 없음 ㅅㄱ')
 
 # "!경기시작" 명령어 처리
 @bot.command(name='경기시작')
