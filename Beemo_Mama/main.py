@@ -13,7 +13,7 @@ music_list_path = os.path.join(current_dir, 'music_list.json')
 
 # config.json 파일에서 설정 읽기
 try:
-    with open(config_path, 'r') as f:
+    with open(config_path, 'r', encoding='utf-8') as f:
         config = json.load(f)
 except Exception as e:
     print(f"Error reading config.json: {e}")
@@ -24,7 +24,7 @@ authorized_user_id = int(config['authorized_user_id'])
 
 # recent_numbers.json 파일에서 최근 생성된 숫자 읽기
 try:
-    with open(recent_numbers_path, 'r') as f:
+    with open(recent_numbers_path, 'r', encoding='utf-8') as f:
         recent_data = json.load(f)
         recent_numbers = deque(recent_data['recent_numbers'], maxlen=10)
 except Exception as e:
@@ -33,7 +33,7 @@ except Exception as e:
 
 # music_list.json 파일에서 음악 리스트 읽기
 try:
-    with open(music_list_path, 'r') as f:
+    with open(music_list_path, 'r', encoding='utf-8') as f:
         music_data = json.load(f)
         music_list = music_data['music_list']
 except Exception as e:
@@ -63,8 +63,8 @@ async def random_music_command(ctx):
                 return
             random_music = random.choice(music_list)
             recent_numbers.append(random_music)
-            with open(recent_numbers_path, 'w') as f:
-                json.dump({'recent_numbers': list(recent_numbers)}, f)
+            with open(recent_numbers_path, 'w', encoding='utf-8') as f:
+                json.dump({'recent_numbers': list(recent_numbers)}, f, ensure_ascii=False)
             await ctx.send(f'첫 곡: {random_music}')
         except Exception as e:
             await ctx.send(f'오류 발생: {e}')
@@ -86,8 +86,8 @@ async def next_music_command(ctx):
             if possible_music:
                 random_music = random.choice(possible_music)
                 recent_numbers.append(random_music)
-                with open(recent_numbers_path, 'w') as f:
-                    json.dump({'recent_numbers': list(recent_numbers)}, f)
+                with open(recent_numbers_path, 'w', encoding='utf-8') as f:
+                    json.dump({'recent_numbers': list(recent_numbers)}, f, ensure_ascii=False)
                 await ctx.send(f'다음곡: {random_music}')
             else:
                 await ctx.send('모든 음악이 최근에 사용되었습니다.')
