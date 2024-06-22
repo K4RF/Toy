@@ -167,6 +167,17 @@ async def reset_recent_musics(ctx):
     else:
         await ctx.send('이 명령어를 사용할 권한이 없습니다.')
 
+# "!리스트" 명령어 처리
+@bot.command(name='리스트')
+async def list_music_command(ctx):
+    if check_authorization(ctx.author.id):
+        if not music_list:
+            await ctx.send('음악 리스트가 비어 있습니다.')
+        else:
+            await ctx.send('음악 리스트:\n' + '\n'.join(music_list))
+    else:
+        await ctx.send('님 권한 없음 ㅅㄱ')
+
 # 봇 실행
 try:
     bot.run(bot_token)
